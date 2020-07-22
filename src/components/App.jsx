@@ -2,6 +2,7 @@ import React from "react";
 import Header from "./Header";
 import LocationSearch from "./LocationSearch";
 import axios from "axios";
+import CardList from "./CardList";
 
 class App extends React.Component {
   state = { locationData: [] };
@@ -21,9 +22,7 @@ class App extends React.Component {
       <div>
         <Header />
         <LocationSearch getLocationData={this.getLocationData} />
-        {this.state.locationData.map((location) => (
-          <p key={location.id}>{location.name}</p>
-        ))}
+        <CardList locationData={this.state.locationData} />
       </div>
     );
   }

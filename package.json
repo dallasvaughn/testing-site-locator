@@ -1,8 +1,8 @@
 {
-  "homepage": "https://dallasvaughn.github.io/testing-site-locator/",
   "name": "capstone",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://dallasvaughn.github.io/testing-site-locator/",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@testing-library/jest-dom": "^4.2.4",
