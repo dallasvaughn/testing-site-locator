@@ -1,31 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import LocationSearch from "./LocationSearch";
 import axios from "axios";
 import CardList from "./CardList";
 
-class App extends React.Component {
-  state = { locationData: [] };
+const App = () => {
+  const [locationData, setLocationData] = useState([]);
 
-  getLocationData = (location) => {
-    axios
+  const getLocationData = async (location) => {
+    await axios
       .get(
         `https://covid-19-testing.github.io/locations/${location}/complete.json`
       )
       .then((res) => {
-        this.setState({ locationData: res.data });
+        setLocationData(res.data);
       });
   };
 
-  render() {
-    return (
-      <div>
-        <Header />
-        <LocationSearch getLocationData={this.getLocationData} />
-        <CardList locationData={this.state.locationData} />
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Header />
+
+      <LocationSearch getLocationData={getLocationData} />
+
+      <CardList locationData={locationData} />
+    </div>
+  );
+};
 
 export default App;

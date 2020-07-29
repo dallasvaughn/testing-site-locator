@@ -1,54 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   InputLabel,
   MenuItem,
   FormControl,
   Select,
   Button,
+  makeStyles,
 } from "@material-ui/core";
 import locations from "../locations";
 
-class LocationSearch extends React.Component {
-  state = { location: "" };
+const useStyles = makeStyles({
+  select: {
+    width: "300px",
+    backgroundColor: "#e4e3e3",
+  },
+  button: {
+    backgroundColor: "#3b6978",
+  },
+});
 
-  onFormChange = (e) => {
-    this.setState({ location: e.target.value });
-  };
+const LocationSearch = (props) => {
+  const [location, setLocation] = useState("");
+  const classes = useStyles();
 
-  render() {
-    return (
-      <div>
-        <div className="form-container">
-          <div className="form-select">
-            <FormControl variant="filled">
-              <InputLabel>State</InputLabel>
-              <Select
-                className="location-select"
-                value={this.state.location}
-                onChange={this.onFormChange}
-              >
-                {locations.map((location) => (
-                  <MenuItem key={location.value} value={location.value}>
-                    {location.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </div>
-          <div className="form-button">
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              onClick={() => this.props.getLocationData(this.state.location)}
+  return (
+    <div>
+      <div className="form-container">
+        <div className="form-select">
+          <FormControl variant="filled">
+            <InputLabel>State</InputLabel>
+            <Select
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className={classes.select}
             >
-              Submit
-            </Button>
-          </div>
+              {locations.map((location) => (
+                <MenuItem key={location.value} value={location.value}>
+                  {location.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
+        <div className="form-button">
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            className={classes.button}
+            onClick={() => props.getLocationData(location)}
+          >
+            Submit
+          </Button>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default LocationSearch;
