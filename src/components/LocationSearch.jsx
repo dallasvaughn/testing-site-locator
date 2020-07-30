@@ -19,36 +19,38 @@ const useStyles = makeStyles({
   },
 });
 
-const LocationSearch = (props) => {
+const LocationSearch = ({ getLocationData }) => {
   const [location, setLocation] = useState("");
   const classes = useStyles();
 
   return (
     <div>
+      <p className="data-p">
+        <strong>Select a state to view testing locations</strong>
+      </p>
       <div className="form-container">
-        <div className="form-select">
-          <FormControl variant="filled">
-            <InputLabel>State</InputLabel>
-            <Select
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              className={classes.select}
-            >
-              {locations.map((location) => (
-                <MenuItem key={location.value} value={location.value}>
-                  {location.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </div>
+        <FormControl variant="filled">
+          <InputLabel>State</InputLabel>
+          <Select
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            className={classes.select}
+          >
+            {locations.map((location) => (
+              <MenuItem key={location.value} value={location.value}>
+                {location.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
         <div className="form-button">
           <Button
             variant="contained"
             color="primary"
             size="large"
             className={classes.button}
-            onClick={() => props.getLocationData(location)}
+            onClick={() => getLocationData(location)}
           >
             Submit
           </Button>

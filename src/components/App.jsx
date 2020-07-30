@@ -4,6 +4,7 @@ import LocationSearch from "./LocationSearch";
 import axios from "axios";
 import CardList from "./CardList";
 import DataSelect from "./DataSelect";
+import Data from "./Data";
 import { Switch, FormControlLabel, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -18,18 +19,51 @@ const useStyles = makeStyles({
 });
 
 const App = () => {
-  const [locationData, setLocationData] = useState([]);
+  const [locationData, setLocationData] = useState([]); //state for testing site locations
   const [checked, setChecked] = useState(false);
+  const [locationDataOne, setLocationDataOne] = useState([]); //state for data comparison
+  const [locationDataTwo, setLocationDataTwo] = useState([]); //state for data comparison
+  const [locationOne, setLocationOne] = useState("");
+  const [locationTwo, setLocationTwo] = useState("");
   const classes = useStyles();
 
   const getLocationData = async (location) => {
-    await axios
-      .get(
-        `https://covid-19-testing.github.io/locations/${location}/complete.json`
-      )
-      .then((res) => {
-        setLocationData(res.data);
-      });
+    if (!location) {
+      alert("Please select a state");
+    } else {
+      await axios
+        .get(
+          `https://covid-19-testing.github.io/locations/${location}/complete.json`
+        )
+        .then((res) => {
+          setLocationData(res.data);
+        });
+    }
+  };
+
+  const getLocationDataCompare = async (locationOne, locationTwo) => {
+    if (!locationOne || !locationTwo) {
+      alert("Please select two states");
+    } else {
+      setLocationOne(locationOne);
+      setLocationTwo(locationTwo);
+
+      await axios
+        .get(
+          `https://covid-19-testing.github.io/locations/${locationOne}/complete.json`
+        )
+        .then((res) => {
+          setLocationDataOne(res.data);
+        });
+
+      await axios
+        .get(
+          `https://covid-19-testing.github.io/locations/${locationTwo}/complete.json`
+        )
+        .then((res) => {
+          setLocationDataTwo(res.data);
+        });
+    }
   };
 
   return (
@@ -50,7 +84,16 @@ const App = () => {
       </div>
 
       {checked ? (
-        <DataSelect />
+        <Fragment>
+          <DataSelect getLocationDataCompare={getLocationDataCompare} />
+
+          <Data
+            locationDataOne={locationDataOne}
+            locationDataTwo={locationDataTwo}
+            locationOne={locationOne}
+            locationTwo={locationTwo}
+          />
+        </Fragment>
       ) : (
         <Fragment>
           <LocationSearch getLocationData={getLocationData} />
