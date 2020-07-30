@@ -1,11 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import Header from "./Header";
 import LocationSearch from "./LocationSearch";
 import axios from "axios";
 import CardList from "./CardList";
+import DataSelect from "./DataSelect";
+import { Switch, FormControlLabel, makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles({
+  switch: {
+    display: "flex",
+    justifyContent: "center",
+    backgroundColor: "#84a9ac",
+    width: "190px",
+    margin: "0 auto",
+    fontFamily: "Arial",
+  },
+});
 
 const App = () => {
   const [locationData, setLocationData] = useState([]);
+  const [checked, setChecked] = useState(false);
+  const classes = useStyles();
 
   const getLocationData = async (location) => {
     await axios
@@ -18,13 +33,32 @@ const App = () => {
   };
 
   return (
-    <div>
+    <Fragment>
       <Header />
+      <div className="switch-container">
+        <FormControlLabel
+          className={classes.switch}
+          control={
+            <Switch
+              checked={checked}
+              color="primary"
+              onChange={(e) => setChecked(e.target.checked)}
+            />
+          }
+          label="Data Visualization"
+        />
+      </div>
 
-      <LocationSearch getLocationData={getLocationData} />
+      {checked ? (
+        <DataSelect />
+      ) : (
+        <Fragment>
+          <LocationSearch getLocationData={getLocationData} />
 
-      <CardList locationData={locationData} />
-    </div>
+          <CardList locationData={locationData} />
+        </Fragment>
+      )}
+    </Fragment>
   );
 };
 

@@ -10,6 +10,7 @@
 
 body {
   background-color: #204051;
+  font-family: "Lato";
 }
 
 .header {
@@ -18,6 +19,10 @@ body {
   background-color: #84a9ac;
   font-size: 3em;
   padding: 20px;
+}
+
+.switch-container {
+  background-color: #84a9ac;
 }
 
 .form-container {
