@@ -43,6 +43,7 @@ const Data = ({
     {
       name: stateOne,
       "Testing locations": locationDataOne.length,
+      "Population (million)": stateOnePop,
       "Testing sites/million":
         Math.round(
           (locationDataOne.length / stateOnePop + Number.EPSILON) * 100
@@ -51,6 +52,7 @@ const Data = ({
     {
       name: stateTwo,
       "Testing locations": locationDataTwo.length,
+      "Population (million)": stateTwoPop,
       "Testing sites/million":
         Math.round(
           (locationDataTwo.length / stateTwoPop + Number.EPSILON) * 100
@@ -81,6 +83,7 @@ const Data = ({
               <YAxis />
               <Tooltip />
               <Legend />
+              <Bar dataKey="Population (million)" fill="#82ca9d" />
               <Bar dataKey="Testing sites/million" fill="#8884d8" />
             </BarChart>
           </Box>
