@@ -17,6 +17,9 @@ const useStyles = makeStyles({
     "@media (max-width:900px)": {
       width: "200px",
     },
+    "@media (max-width:500px)": {
+      width: "130px",
+    },
   },
   button: {
     backgroundColor: "#3b6978",

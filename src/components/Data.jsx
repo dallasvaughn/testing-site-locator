@@ -23,6 +23,12 @@ const useStyles = makeStyles({
     "@media (max-width:900px)": {
       width: "400px",
     },
+    "@media (max-width:500px)": {
+      width: "300px",
+    },
+    "@media (max-width:400px)": {
+      width: "250px",
+    },
   },
 });
 
@@ -96,12 +102,12 @@ const Data = ({
           <Box className={classes.box}>
             <h1 className="chart-title">Number of Testing Locations</h1>
             <ResponsiveContainer width="99%" height={400}>
-              <PieChart width={500} height={400}>
+              <PieChart>
                 <Pie
                   data={data}
                   cx="50%"
                   cy="50%"
-                  outerRadius={120}
+                  outerRadius={100}
                   label
                   dataKey="Testing locations"
                 >
@@ -109,11 +115,7 @@ const Data = ({
                     <Cell key={`cell-${index}`} fill={colors[index]} />
                   ))}
                 </Pie>
-                <Legend
-                  align="right"
-                  layout="vertical"
-                  verticalAlign="middle"
-                />
+                <Legend align="center" layout="horizontal" />
                 <Tooltip />
               </PieChart>
             </ResponsiveContainer>
