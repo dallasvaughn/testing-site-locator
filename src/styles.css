@@ -8,6 +8,15 @@
   background: transparent;
 }
 
+@media only screen and (max-width: 900px) {
+  .data-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 body {
   background-color: #204051;
   font-family: "Lato";

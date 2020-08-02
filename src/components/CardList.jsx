@@ -15,7 +15,9 @@ const CardList = (props) => {
     <div>
       <div className={classes.listContainer}>
         {props.locationData.length === 1 ? (
-          <div>No location data available yet!</div>
+          <div className="data-error-message">
+            No location data available yet!
+          </div>
         ) : (
           props.locationData.map((location) => (
             <LocationCard

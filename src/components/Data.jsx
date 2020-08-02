@@ -9,6 +9,7 @@ import {
   PieChart,
   Pie,
   Cell,
+  ResponsiveContainer,
 } from "recharts";
 import locations from "../locations";
 import { Box, makeStyles } from "@material-ui/core";
@@ -19,6 +20,9 @@ const useStyles = makeStyles({
     width: "550px",
     borderRadius: "15px",
     margin: "30px",
+    "@media (max-width:780px)": {
+      width: "400px",
+    },
   },
 });
 
@@ -78,33 +82,41 @@ const Data = ({
         <div className="data-container">
           <Box className={classes.box}>
             <h1 className="chart-title">Testing Locations Per Capita</h1>
-            <BarChart width={500} height={400} data={data}>
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="Population (million)" fill="#82ca9d" />
-              <Bar dataKey="Testing sites/million" fill="#8884d8" />
-            </BarChart>
+            <ResponsiveContainer width="99%" height={400}>
+              <BarChart data={data}>
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="Population (million)" fill="#82ca9d" />
+                <Bar dataKey="Testing sites/million" fill="#8884d8" />
+              </BarChart>
+            </ResponsiveContainer>
           </Box>
           <Box className={classes.box}>
             <h1 className="chart-title">Number of Testing Locations</h1>
-            <PieChart width={500} height={400}>
-              <Pie
-                data={data}
-                cx="50%"
-                cy="50%"
-                outerRadius={120}
-                label
-                dataKey="Testing locations"
-              >
-                {data.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={colors[index]} />
-                ))}
-              </Pie>
-              <Legend align="right" layout="vertical" verticalAlign="middle" />
-              <Tooltip />
-            </PieChart>
+            <ResponsiveContainer width="99%" height={400}>
+              <PieChart width={500} height={400}>
+                <Pie
+                  data={data}
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={120}
+                  label
+                  dataKey="Testing locations"
+                >
+                  {data.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={colors[index]} />
+                  ))}
+                </Pie>
+                <Legend
+                  align="right"
+                  layout="vertical"
+                  verticalAlign="middle"
+                />
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
           </Box>
         </div>
       </Fragment>
