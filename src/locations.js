@@ -191,7 +191,7 @@ const locations = [
   },
   {
     name: "Rhode Island",
-    value: "rhode-island",
+    value: "rhode_island",
     pop: 1.0,
   },
   {
